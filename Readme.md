@@ -7,7 +7,7 @@ Unfortunately, I haven't found a good python library for twitch that was simple,
 
 While Python IRC libraries exist (TMI is a weird IRC), most are too complicated to use, not extendable, don't support asyncio, or are for python 2.
 
-Many of the ideas used in this library came from [discord.py](https://github.com/Rapptz/discord.py), a library for creating bots for discord. Credit where credit is due.
+Many of the ideas used in this library came from [discord.py](https://github.com/Rapptz/discord.py), a library for creating bots for discord.
 
 ## Example
 
@@ -26,5 +26,5 @@ client = pytmi.TwitchClient(**config)
 async def on_message(message):
     print("Received message")
 
-client.run()
+client.run_sync()
 ```

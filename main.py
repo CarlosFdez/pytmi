@@ -1,7 +1,7 @@
 import pytmi
 import config
 
-# This is a temporary sort of test file
+# This is a temporary test file, will go away in future version 
 
 client = pytmi.TwitchClient(**config.config)
 
@@ -9,4 +9,4 @@ client = pytmi.TwitchClient(**config.config)
 async def on_message(message):
     print("Received message")
 
-client.run()
+client.run_sync()

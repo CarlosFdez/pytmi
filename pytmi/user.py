@@ -10,9 +10,12 @@ class UserType(enum.Enum):
     STAFF = "staff"
 
 class User:
-    """Contains basic information about a user from a message, usernotice, or userstate."""
+    """Represents a user in the TMI.
 
-    def __init__(self, color, displayName, mod, subscriber, turbo, userType):
+    It is available during certain events, such as when a message arrives in a chat channel.
+    """
+
+    def __init__(self, color: str, displayName : str, mod : bool, subscriber : bool, turbo : bool, userType : UserType):
         self.color = color
         self.displayName = displayName
         self.mod = mod
