@@ -1,0 +1,7 @@
+# Copy this to config.py and set up the variables
+
+config = dict(
+    channels = ["#channelname"],
+    username = "botname",
+    password = "some oauth garbage from http://www.twitchapps.com/tmi/"
+)
