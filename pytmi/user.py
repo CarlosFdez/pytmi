@@ -15,9 +15,10 @@ class User:
     It is available during certain events, such as when a message arrives in a chat channel.
     """
 
-    def __init__(self, color: str, displayName : str, mod : bool, subscriber : bool, turbo : bool, userType : UserType):
+    def __init__(self, color: str, id: str, name : str, mod : bool, subscriber : bool, turbo : bool, userType : UserType):
         self.color = color
-        self.displayName = displayName
+        self.id = id
+        self.name = name
         self.mod = mod
         self.subscriber = subscriber
         self.turbo = turbo

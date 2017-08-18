@@ -11,6 +11,8 @@ Many of the ideas used in this library came from [discord.py](https://github.com
 
 ## Example
 
+This is an example of the core functionality.
+
 ```py
 import pytmi
 
@@ -28,3 +30,25 @@ async def on_message(message):
 
 client.run_sync()
 ```
+
+This is an example of the bot command functionality.
+
+```py
+from pytmi.bot import TwitchBot
+
+config = {
+    'username': "botname",
+    'password': "oauthstring",
+    'channels': ["#channelname"]
+}
+
+client = pytmi.TwitchClient(prefix='!', **config)
+
+@bot.command()
+async def hello(ctx):
+    await ctx.reply("Hello " + ctx.author.name)
+
+client.run_sync()
+```
+
+More examples are available in the examples/ folder.

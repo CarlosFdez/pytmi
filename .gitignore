@@ -3,6 +3,10 @@
 
 config.py
 
+# I was lazy and created a symbolic link in examples to test the lib
+# This prevents the symbolic link from being checked in
+examples/pytmi
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]

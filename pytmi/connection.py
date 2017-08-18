@@ -31,7 +31,8 @@ def parse_badges(badgestr : str):
 def parse_user(tags : dict):
     return User(
         color=tags.get("color"),
-        displayName=tags.get("display-name"),
+        id=tags.get("user-id"),
+        name=tags.get("display-name"),
         mod=tags.get("mod") == "1",
         subscriber=tags.get("subscriber") == "1",
         turbo=tags.get("turbo") == "1",

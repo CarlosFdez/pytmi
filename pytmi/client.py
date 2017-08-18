@@ -55,8 +55,18 @@ class TwitchClient:
         "Triggers an event and passes arguments to it."
         print("TRIGGERED {}".format(event_name))
         event_name = "on_" + event_name
+
+        # If an event exists in this object, call it
+        event_fn = getattr(self, event_name, None)
+        if event_fn:
+            coro = event_fn(*args, **kwargs)
+            asyncio.ensure_future(coro)
+
+        # If event has been registered in the collection, call it
         for callback in self._events.get(event_name, []):
-            asyncio.ensure_future(callback(*args, **kwargs))
+            coro = callback(*args, **kwargs)
+            asyncio.ensure_future(coro)
+
 
     #######################################################################
     # PLUMBING
