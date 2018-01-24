@@ -3,5 +3,5 @@
 config = dict(
     channels = ["#channelname"],
     username = "botname",
-    password = "some oauth garbage from http://www.twitchapps.com/tmi/"
+    password = "oauth string from http://www.twitchapps.com/tmi/"
 )

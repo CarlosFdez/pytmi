@@ -22,13 +22,13 @@ config = {
     'channels': ["#channelname"]
 }
 
-client = pytmi.TwitchClient(**config)
+client = pytmi.TwitchClient()
 
 @client.event
 async def on_message(message):
     print("Received message")
 
-client.run_sync()
+client.run_sync(**config)
 ```
 
 This is an example of the bot command functionality.
@@ -42,13 +42,13 @@ config = {
     'channels': ["#channelname"]
 }
 
-client = pytmi.TwitchClient(prefix='!', **config)
+client = pytmi.TwitchBot(prefix='!')
 
 @bot.command()
 async def hello(ctx):
     await ctx.reply("Hello " + ctx.author.name)
 
-client.run_sync()
+client.run_sync(**config)
 ```
 
 More examples are available in the examples/ folder.
