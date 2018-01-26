@@ -1,0 +1,205 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Client &#8212; pytmi 0.1 documentation</title>
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '0.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="Welcome to pytmi’s documentation!" href="index.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head>
+  <body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="client">
+<h1>Client<a class="headerlink" href="#client" title="Permalink to this headline">¶</a></h1>
+<dl class="class">
+<dt id="pytmi.TwitchClient">
+<em class="property">class </em><code class="descclassname">pytmi.</code><code class="descname">TwitchClient</code><a class="headerlink" href="#pytmi.TwitchClient" title="Permalink to this definition">¶</a></dt>
+<dd><p>Represents a connection to Twitch’s Messaging Interface.
+Instances of this class can join twitch channels and communicate with users.</p>
+<dl class="method">
+<dt id="pytmi.TwitchClient.event">
+<code class="descname">event</code><span class="sig-paren">(</span><em>event_coro</em><span class="sig-paren">)</span><a class="headerlink" href="#pytmi.TwitchClient.event" title="Permalink to this definition">¶</a></dt>
+<dd><p>A decorator that registers an event. The registered function must be a coroutine.</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="nd">@client.event</span>
+<span class="n">async</span> <span class="k">def</span> <span class="nf">on_message</span><span class="p">(</span><span class="n">message</span><span class="p">):</span>
+    <span class="k">print</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;Received message from {message.author}: {message.content}&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="pytmi.TwitchClient.join">
+<code class="descname">join</code><span class="sig-paren">(</span><em>channel: str</em><span class="sig-paren">)</span><a class="headerlink" href="#pytmi.TwitchClient.join" title="Permalink to this definition">¶</a></dt>
+<dd><p>This function is a coroutine.</p>
+<p>Joins a twitch channel. Twitch channels use the name of the streamer.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pytmi.TwitchClient.part">
+<code class="descname">part</code><span class="sig-paren">(</span><em>channel: str</em><span class="sig-paren">)</span><a class="headerlink" href="#pytmi.TwitchClient.part" title="Permalink to this definition">¶</a></dt>
+<dd><p>This function is a coroutine.</p>
+<p>Leaves a twitch channel. Twitch channels use the name of the streamer.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pytmi.TwitchClient.run">
+<code class="descname">run</code><span class="sig-paren">(</span><em>username=None</em>, <em>password=None</em>, <em>channels=[]</em><span class="sig-paren">)</span><a class="headerlink" href="#pytmi.TwitchClient.run" title="Permalink to this definition">¶</a></dt>
+<dd><p>This function is a coroutine.</p>
+<p>Log in to twitch, autojoins the given channels, and begins listening for messages.</p>
+<p>Since this is a coroutine, it cannot be run from normal code.
+If you want a simpler version, use run_sync() instead.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pytmi.TwitchClient.run_sync">
+<code class="descname">run_sync</code><span class="sig-paren">(</span><em>username=None</em>, <em>password=None</em>, <em>channels=[]</em><span class="sig-paren">)</span><a class="headerlink" href="#pytmi.TwitchClient.run_sync" title="Permalink to this definition">¶</a></dt>
+<dd><p>A blocking function that starts executing the bot using the provided connection info.</p>
+<p>This function adds run() to the event loop, and pauses execution until the client disconnects.
+Therefore, this function must be performed as the last function.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pytmi.TwitchClient.send_event">
+<code class="descname">send_event</code><span class="sig-paren">(</span><em>event_name: str</em>, <em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#pytmi.TwitchClient.send_event" title="Permalink to this definition">¶</a></dt>
+<dd><p>This function is a coroutine.</p>
+<p>Internal function that triggers an event and passes arguments to it.
+You almost never want to use this.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pytmi.TwitchClient.send_message">
+<code class="descname">send_message</code><span class="sig-paren">(</span><em>channel: str</em>, <em>message: str</em><span class="sig-paren">)</span><a class="headerlink" href="#pytmi.TwitchClient.send_message" title="Permalink to this definition">¶</a></dt>
+<dd><p>This function is a coroutine.</p>
+<p>Send a chat message to a channel</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pytmi.TwitchClient.send_raw">
+<code class="descname">send_raw</code><span class="sig-paren">(</span><em>raw_message: str</em><span class="sig-paren">)</span><a class="headerlink" href="#pytmi.TwitchClient.send_raw" title="Permalink to this definition">¶</a></dt>
+<dd><p>This function is a coroutine.</p>
+<p>Internal method to send a raw command message.
+The messages supported are those in the tmi protocol. You almost never want to use this.</p>
+<p>If you want to send a chat message, use send_message() instead.</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="bot">
+<h1>Bot<a class="headerlink" href="#bot" title="Permalink to this headline">¶</a></h1>
+<dl class="class">
+<dt id="pytmi.bot.TwitchBot">
+<em class="property">class </em><code class="descclassname">pytmi.bot.</code><code class="descname">TwitchBot</code><span class="sig-paren">(</span><em>prefix=None</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#pytmi.bot.TwitchBot" title="Permalink to this definition">¶</a></dt>
+<dd><p>A subclass of TwitchClient used to respond to bot commands.</p>
+<dl class="method">
+<dt id="pytmi.bot.TwitchBot.add_command">
+<code class="descname">add_command</code><span class="sig-paren">(</span><em>command: pytmi.bot.commands.Command</em><span class="sig-paren">)</span><a class="headerlink" href="#pytmi.bot.TwitchBot.add_command" title="Permalink to this definition">¶</a></dt>
+<dd><p>Adds a command to the bot. You’ll usually use the command decorator instead</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pytmi.bot.TwitchBot.command">
+<code class="descname">command</code><span class="sig-paren">(</span><em>name=None</em><span class="sig-paren">)</span><a class="headerlink" href="#pytmi.bot.TwitchBot.command" title="Permalink to this definition">¶</a></dt>
+<dd><p>A decorator used to register a function as a command to the bot.
+The name of the command is set with either the name argument, or the name of the given function</p>
+<p>Creates a bot, with a !hello command</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">bot</span> <span class="o">=</span> <span class="n">TwitchBot</span><span class="p">(</span><span class="n">prefix</span><span class="o">=</span><span class="s1">&#39;!&#39;</span><span class="p">)</span>
+
+<span class="nd">@bot.command</span><span class="p">()</span>
+<span class="n">async</span> <span class="k">def</span> <span class="nf">hello</span><span class="p">(</span><span class="n">ctx</span><span class="p">):</span>
+    <span class="n">await</span> <span class="n">ctx</span><span class="o">.</span><span class="n">reply</span><span class="p">(</span><span class="s2">&quot;Hello &quot;</span> <span class="o">+</span> <span class="n">ctx</span><span class="o">.</span><span class="n">author</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="pytmi.bot.TwitchBot.on_message">
+<code class="descname">on_message</code><span class="sig-paren">(</span><em>message: pytmi.message.Message</em><span class="sig-paren">)</span><a class="headerlink" href="#pytmi.bot.TwitchBot.on_message" title="Permalink to this definition">¶</a></dt>
+<dd><p>Internal async event which calls process_message.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pytmi.bot.TwitchBot.process_message">
+<code class="descname">process_message</code><span class="sig-paren">(</span><em>message: pytmi.message.Message</em><span class="sig-paren">)</span><a class="headerlink" href="#pytmi.bot.TwitchBot.process_message" title="Permalink to this definition">¶</a></dt>
+<dd><p>This function is a coroutine.</p>
+<p>Internal method that examines the message object for commands.</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper"><div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="index.html" title="previous chapter">Welcome to pytmi’s documentation!</a></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2018, Carlos Fernandez.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.6.6</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
+      
+      |
+      <a href="_sources/api.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

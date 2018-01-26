@@ -1,0 +1,276 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Core API Reference &#8212; pytmi 0.1 documentation</title>
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '0.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Bot API Reference" href="bot.html" />
+    <link rel="prev" title="Welcome to pytmi’s documentation!" href="index.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head>
+  <body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="core-api-reference">
+<h1>Core API Reference<a class="headerlink" href="#core-api-reference" title="Permalink to this headline">¶</a></h1>
+<p>This section outlines the core classes of pytmi.</p>
+<div class="section" id="twitchclient">
+<h2>TwitchClient<a class="headerlink" href="#twitchclient" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="pytmi.TwitchClient">
+<em class="property">class </em><code class="descclassname">pytmi.</code><code class="descname">TwitchClient</code><a class="headerlink" href="#pytmi.TwitchClient" title="Permalink to this definition">¶</a></dt>
+<dd><p>Represents a connection to Twitch’s Messaging Interface.
+Instances of this class can join twitch channels and communicate with users.</p>
+<dl class="method">
+<dt id="pytmi.TwitchClient.event">
+<code class="descname">event</code><span class="sig-paren">(</span><em>event_coro</em><span class="sig-paren">)</span><a class="headerlink" href="#pytmi.TwitchClient.event" title="Permalink to this definition">¶</a></dt>
+<dd><p>A decorator that registers an event. The registered function must be a coroutine.</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="nd">@client.event</span>
+<span class="n">async</span> <span class="k">def</span> <span class="nf">on_message</span><span class="p">(</span><span class="n">message</span><span class="p">):</span>
+    <span class="k">print</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;Received message from {message.author}: {message.content}&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="pytmi.TwitchClient.join">
+<em class="property">coroutine </em><code class="descname">join</code><span class="sig-paren">(</span><em>channel: str</em><span class="sig-paren">)</span><a class="headerlink" href="#pytmi.TwitchClient.join" title="Permalink to this definition">¶</a></dt>
+<dd><p>This function is a coroutine.</p>
+<p>Joins a twitch channel. Twitch channels use the name of the streamer.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pytmi.TwitchClient.part">
+<em class="property">coroutine </em><code class="descname">part</code><span class="sig-paren">(</span><em>channel: str</em><span class="sig-paren">)</span><a class="headerlink" href="#pytmi.TwitchClient.part" title="Permalink to this definition">¶</a></dt>
+<dd><p>This function is a coroutine.</p>
+<p>Leaves a twitch channel. Twitch channels use the name of the streamer.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pytmi.TwitchClient.run">
+<em class="property">coroutine </em><code class="descname">run</code><span class="sig-paren">(</span><em>username=None</em>, <em>password=None</em>, <em>channels=[]</em><span class="sig-paren">)</span><a class="headerlink" href="#pytmi.TwitchClient.run" title="Permalink to this definition">¶</a></dt>
+<dd><p>This function is a coroutine.</p>
+<p>Log in to twitch, autojoins the given channels, and begins listening for messages.</p>
+<p>Since this is a coroutine, it cannot be run from normal code.
+If you want a simpler version, use <a class="reference internal" href="#pytmi.TwitchClient.run_sync" title="pytmi.TwitchClient.run_sync"><code class="xref py py-meth docutils literal"><span class="pre">run_sync()</span></code></a> instead.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pytmi.TwitchClient.run_sync">
+<code class="descname">run_sync</code><span class="sig-paren">(</span><em>username=None</em>, <em>password=None</em>, <em>channels=[]</em><span class="sig-paren">)</span><a class="headerlink" href="#pytmi.TwitchClient.run_sync" title="Permalink to this definition">¶</a></dt>
+<dd><p>A blocking function that starts executing the bot using the provided connection info.</p>
+<p>This function adds the method <a class="reference internal" href="#pytmi.TwitchClient.run" title="pytmi.TwitchClient.run"><code class="xref py py-meth docutils literal"><span class="pre">run()</span></code></a> to the event loop, and pauses execution until the client disconnects.
+Therefore, this function must be performed as the last function.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pytmi.TwitchClient.send_event">
+<em class="property">coroutine </em><code class="descname">send_event</code><span class="sig-paren">(</span><em>event_name: str</em>, <em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#pytmi.TwitchClient.send_event" title="Permalink to this definition">¶</a></dt>
+<dd><p>This function is a coroutine.</p>
+<p>Internal function that triggers an event and passes arguments to it.
+You almost never want to use this.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pytmi.TwitchClient.send_message">
+<em class="property">coroutine </em><code class="descname">send_message</code><span class="sig-paren">(</span><em>channel: str</em>, <em>message: str</em><span class="sig-paren">)</span><a class="headerlink" href="#pytmi.TwitchClient.send_message" title="Permalink to this definition">¶</a></dt>
+<dd><p>This function is a coroutine.</p>
+<p>Send a chat message to a channel</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pytmi.TwitchClient.send_raw">
+<em class="property">coroutine </em><code class="descname">send_raw</code><span class="sig-paren">(</span><em>raw_message: str</em><span class="sig-paren">)</span><a class="headerlink" href="#pytmi.TwitchClient.send_raw" title="Permalink to this definition">¶</a></dt>
+<dd><p>This function is a coroutine.</p>
+<p>Internal method to send a raw command message.
+The messages supported are those in the tmi protocol. You almost never want to use this.</p>
+<p>If you want to send a chat message, use <a class="reference internal" href="#pytmi.TwitchClient.send_message" title="pytmi.TwitchClient.send_message"><code class="xref py py-meth docutils literal"><span class="pre">send_message()</span></code></a> instead.</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="event-reference">
+<h2>Event Reference<a class="headerlink" href="#event-reference" title="Permalink to this headline">¶</a></h2>
+<p>This is a list of all possible events that can be propogated by <a class="reference internal" href="#pytmi.TwitchClient" title="pytmi.TwitchClient"><code class="xref py py-class docutils literal"><span class="pre">TwitchClient</span></code></a>.</p>
+<p>Events can be listened to by either registering them via the
+<a class="reference internal" href="#pytmi.TwitchClient.event" title="pytmi.TwitchClient.event"><code class="xref py py-meth docutils literal"><span class="pre">TwitchClient.event()</span></code></a> decorator, or by subclassing
+<a class="reference internal" href="#pytmi.TwitchClient" title="pytmi.TwitchClient"><code class="xref py py-class docutils literal"><span class="pre">TwitchClient</span></code></a> and overriding the event.</p>
+<p>All events must be coroutines.</p>
+<dl class="function">
+<dt id="pytmi.on_ping">
+<code class="descclassname">pytmi.</code><code class="descname">on_ping</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pytmi.on_ping" title="Permalink to this definition">¶</a></dt>
+<dd><p>Triggered when the client receives a ping from the server.
+The library already handles sending <cite>PONG</cite> back to the server internally.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="pytmi.on_raw_message">
+<code class="descclassname">pytmi.</code><code class="descname">on_raw_message</code><span class="sig-paren">(</span><em>raw_message</em><span class="sig-paren">)</span><a class="headerlink" href="#pytmi.on_raw_message" title="Permalink to this definition">¶</a></dt>
+<dd><p>Triggered when the client retrieves <em>any</em> message from the server,
+but before it is parsed.
+This includes such messages such as <cite>PING</cite> or <cite>PRIVMSG</cite>.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>raw_message</strong> – A <code class="xref py py-class docutils literal"><span class="pre">str</span></code> containing the raw message.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="pytmi.on_message">
+<code class="descclassname">pytmi.</code><code class="descname">on_message</code><span class="sig-paren">(</span><em>message</em><span class="sig-paren">)</span><a class="headerlink" href="#pytmi.on_message" title="Permalink to this definition">¶</a></dt>
+<dd><p>Triggered when the client receives a chat channel message from a user.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>message</strong> – A <a class="reference internal" href="#pytmi.Message" title="pytmi.Message"><code class="xref py py-class docutils literal"><span class="pre">Message</span></code></a> representing the received message.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+<div class="section" id="data-structures">
+<h2>Data Structures<a class="headerlink" href="#data-structures" title="Permalink to this headline">¶</a></h2>
+<p>The following classes have minimal behavior on their own,
+and are used to encapsulate data supplied by the <a class="reference internal" href="#pytmi.TwitchClient" title="pytmi.TwitchClient"><code class="xref py py-class docutils literal"><span class="pre">TwitchClient</span></code></a>.</p>
+<div class="section" id="message">
+<h3>Message<a class="headerlink" href="#message" title="Permalink to this headline">¶</a></h3>
+<dl class="class">
+<dt id="pytmi.Message">
+<em class="property">class </em><code class="descclassname">pytmi.</code><code class="descname">Message</code><a class="headerlink" href="#pytmi.Message" title="Permalink to this definition">¶</a></dt>
+<dd><p>Represents a user message in the twitch message interface.</p>
+<dl class="docutils">
+<dt>channel: <code class="xref py py-class docutils literal"><span class="pre">str</span></code></dt>
+<dd>The channel the message was sent from</dd>
+<dt>content: <code class="xref py py-class docutils literal"><span class="pre">str</span></code></dt>
+<dd>The text content of the message</dd>
+<dt>author: <a class="reference internal" href="#pytmi.User" title="pytmi.User"><code class="xref py py-class docutils literal"><span class="pre">User</span></code></a></dt>
+<dd>The <a class="reference internal" href="#pytmi.User" title="pytmi.User"><code class="xref py py-class docutils literal"><span class="pre">User</span></code></a> object that sent this message</dd>
+<dt>badges: <code class="xref py py-class docutils literal"><span class="pre">list</span></code></dt>
+<dd>TODO: change badges to objects, then document</dd>
+<dt>bits: <code class="xref py py-class docutils literal"><span class="pre">int</span></code></dt>
+<dd>The number of bits the user sent in this message.
+This value is 0 if no bits were sent.</dd>
+</dl>
+</dd></dl>
+
+</div>
+<div class="section" id="user">
+<h3>User<a class="headerlink" href="#user" title="Permalink to this headline">¶</a></h3>
+<dl class="class">
+<dt id="pytmi.UserType">
+<em class="property">class </em><code class="descclassname">pytmi.</code><code class="descname">UserType</code><a class="headerlink" href="#pytmi.UserType" title="Permalink to this definition">¶</a></dt>
+<dd><p>Represents a user type of a user in chat</p>
+</dd></dl>
+
+<dl class="class">
+<dt id="pytmi.User">
+<em class="property">class </em><code class="descclassname">pytmi.</code><code class="descname">User</code><a class="headerlink" href="#pytmi.User" title="Permalink to this definition">¶</a></dt>
+<dd><p>Represents a twitch user in a channel.</p>
+<p>It is available during certain events, such as when a message arrives in a chat channel.</p>
+<p>Note that this is not fully parsed, and much of the data is still raw.
+This is highly subject to change in future versions of this library.</p>
+<dl class="docutils">
+<dt>color: <code class="xref py py-class docutils literal"><span class="pre">str</span></code></dt>
+<dd>The color code as a hexadecimal string (ex: #0D4200)</dd>
+<dt>id: <code class="xref py py-class docutils literal"><span class="pre">str</span></code></dt>
+<dd>The id of the twitch user as a raw string.</dd>
+<dt>name: <code class="xref py py-class docutils literal"><span class="pre">str</span></code></dt>
+<dd>The display name of the user</dd>
+<dt>mod: <code class="xref py py-class docutils literal"><span class="pre">bool</span></code></dt>
+<dd><cite>True</cite> if this user is a moderator. <cite>False</cite> otherwise.
+It is usually better to check the badges on the
+<a class="reference internal" href="#pytmi.Message" title="pytmi.Message"><code class="xref py py-class docutils literal"><span class="pre">Message</span></code></a> when checking for permissions.</dd>
+<dt>subscriber: <code class="xref py py-class docutils literal"><span class="pre">bool</span></code></dt>
+<dd><cite>True</cite> if this user is a subscriber. <cite>False</cite> otherwise.</dd>
+<dt>turbo: <code class="xref py py-class docutils literal"><span class="pre">bool</span></code></dt>
+<dd><cite>True</cite> if this user has a turbo badge. <cite>False</cite> otherwise.</dd>
+<dt>userType: <a class="reference internal" href="#pytmi.UserType" title="pytmi.UserType"><code class="xref py py-class docutils literal"><span class="pre">UserType</span></code></a></dt>
+<dd>The type of user this object represents.</dd>
+</dl>
+</dd></dl>
+
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper"><div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="index.html" title="previous chapter">Welcome to pytmi’s documentation!</a></li>
+      <li>Next: <a href="bot.html" title="next chapter">Bot API Reference</a></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2018, Carlos Fernandez.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.6.6</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
+      
+      |
+      <a href="_sources/core.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

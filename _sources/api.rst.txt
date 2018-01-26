@@ -1,0 +1,16 @@
+.. currentmodule:: pytmi
+
+Client
+-------
+
+.. autoclass:: TwitchClient
+    :members:
+
+
+.. currentmodule:: pytmi.bot
+
+Bot
+-------
+
+.. autoclass:: TwitchBot
+    :members:
