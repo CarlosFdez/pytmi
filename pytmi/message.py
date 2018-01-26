@@ -1,18 +1,26 @@
 from .user import User
 
 class Message:
-    """Represents a message in the twitch message interface."""
+    """Represents a user message in the twitch message interface.
+    
+    Attributes
+    -------------
+    channel: :class:`str`
+        The channel the message was sent from
+    content: :class:`str`
+        The text content of the message
+    author: :class:`User`
+        The :class:`User` object that sent this message
+    badges: :class:`list`
+        TODO: change badges to objects, then document
+    bits: :class:`int`
+        The number of bits the user sent in this message.
+        This value is 0 if no bits were sent.
+    """
     
     def __init__(self, channel : str, content : str, author : User, badges, bits : int):
-        "The channel the message was sent from"
         self.channel = channel
-
         self.content = content
-
-        "The user data of the user who sent the message"
         self.author = author
-
         self.badges  = badges
-
-        "The number of bits in the message, or None if nothing was sent"
         self.bits = bits

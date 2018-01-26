@@ -15,4 +15,4 @@ __version__ = '0.0.1'
 
 from .client import TwitchClient
 from .message import Message
-from .user import User
+from .user import User, UserType

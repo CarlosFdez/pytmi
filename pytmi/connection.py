@@ -141,10 +141,12 @@ class TMIConnection:
         channel = match['channel']
         text = match['message']
 
+        # Additional twitch specific data is send as irc tags
+        # We parse the tags and use them to create the required information
         tags = parse_tags(match['tags'])
         badges = parse_badges(tags.get('badges', ''))
         user = parse_user(tags)
-        bits = int(tags["bits"]) if "bits" in tags else None
+        bits = int(tags["bits"]) if "bits" in tags else 0
 
         # NOTE USERNOTICE USERSTATE AND PRIVMSG ARE SIMILAR
         # privmsg has bits

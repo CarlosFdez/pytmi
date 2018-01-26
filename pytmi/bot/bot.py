@@ -8,8 +8,8 @@ class TwitchBot(pytmi.TwitchClient):
     """A subclass of TwitchClient used to respond to bot commands.
     """
 
-    def __init__(self, prefix=None, **kwargs):
-        super().__init__(**kwargs)
+    def __init__(self, prefix=None):
+        super().__init__()
         self.prefix = prefix
 
         self._all_commands = {}
@@ -30,7 +30,7 @@ class TwitchBot(pytmi.TwitchClient):
         -------
 
         Creates a bot, with a !hello command
-        
+
         .. code-block:: python
 
             bot = TwitchBot(prefix='!')
