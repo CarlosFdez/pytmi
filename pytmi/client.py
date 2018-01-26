@@ -23,13 +23,15 @@ class TwitchClient:
         Internal method to send a raw command message.
         The messages supported are those in the tmi protocol. You almost never want to use this.
 
-        If you want to send a chat message, use send_message() instead."""
+        If you want to send a chat message, use :meth:`send_message` instead.
+        """
         await self._connection.send_raw(raw_message)
 
     async def send_message(self, channel : str, message : str):
         """This function is a coroutine.
         
-        Send a chat message to a channel"""
+        Send a chat message to a channel
+        """
         await self._connection.send_message(channel, message)
 
     async def join(self, channel : str):
@@ -57,10 +59,13 @@ class TwitchClient:
         
         Example
         -------
-        
+
+        .. code-block:: python
+
             @client.event
             async def on_message(message):
                 print(f"Received message from {message.author}: {message.content}")
+        
         """
         name = event_coro.__name__
         if name not in self._events:
@@ -100,7 +105,7 @@ class TwitchClient:
         Log in to twitch, autojoins the given channels, and begins listening for messages.
         
         Since this is a coroutine, it cannot be run from normal code.
-        If you want a simpler version, use run_sync() instead.
+        If you want a simpler version, use :meth:`run_sync` instead.
         """
         await self._connection.connect()
         await self._connection.login(username, password)
@@ -115,7 +120,7 @@ class TwitchClient:
     def run_sync(self, username=None, password=None, channels=[]):
         """A blocking function that starts executing the bot using the provided connection info.
         
-        This function adds run() to the event loop, and pauses execution until the client disconnects.
+        This function adds the method :meth:`run` to the event loop, and pauses execution until the client disconnects.
         Therefore, this function must be performed as the last function.
         """
         self.loop = asyncio.get_event_loop()

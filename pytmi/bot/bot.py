@@ -5,6 +5,9 @@ from .context import Context
 from .commands import Command
 
 class TwitchBot(pytmi.TwitchClient):
+    """A subclass of TwitchClient used to respond to bot commands.
+    """
+
     def __init__(self, prefix=None, **kwargs):
         super().__init__(**kwargs)
         self.prefix = prefix
@@ -25,7 +28,10 @@ class TwitchBot(pytmi.TwitchClient):
 
         Example
         -------
-            # Creates a bot, with a !hello command
+
+        Creates a bot, with a !hello command
+        
+        .. code-block:: python
 
             bot = TwitchBot(prefix='!')
 
